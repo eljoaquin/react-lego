@@ -8,6 +8,8 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     app: [
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client',
       `${SRC}/client-entry.js`
     ]
   },
@@ -17,6 +19,7 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('[name].css'),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
