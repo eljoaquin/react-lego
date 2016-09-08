@@ -6,8 +6,8 @@
   "scripts": {
     "prestart": "npm run build",
     "prestart:dev": "npm run build:dev",
-    "build": "webpack --config src/config/webpack.config.prod.babel.js",
-    "build:dev": "webpack --config src/config/webpack.config.dev.babel.js",
+    "build": "NODE_ENV=production webpack --config src/config/webpack.config.prod.js --optimize-minimize",
+    "build:dev": "webpack --config src/config/webpack.config.dev.js",
     "start": "node src/server-entry.js",
     "start:dev": "node src/server-entry.js",
     "lint": "sass-lint -v -q -c ./sass-lint.yml && eslint 'src/**/*.js'",
@@ -52,7 +52,7 @@
     "cssnano": "^3.5.2",
     "debug": "^2.2.0",
     "express": "^4.13.3",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.1.0",
     "node-hook": "^0.4.0",
@@ -65,7 +65,7 @@
     "react-router": "^2.4.0",
     "sass-loader": "^3.1.1",
     "style-loader": "^0.13.0",
-    "webpack": "^1.13.1",
+    "webpack": "^2.1.0-beta.22",
     "yargs": "^4.7.1"
   },
   "devDependencies": {

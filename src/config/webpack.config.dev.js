@@ -1,13 +1,10 @@
-/*
-* The .babel.js in the file name is what makes this work as es6
-* */
-import webpack from 'webpack';
-import autoprefixer from 'autoprefixer';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import './environment';
-import { SRC, DIST } from './paths';
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+require('./environment');
+const { SRC, DIST } = require('./paths');
 
-export default {
+module.exports = {
   devtool: 'source-map',
   entry: {
     app: [
@@ -21,7 +18,6 @@ export default {
   },
   plugins: [
     new ExtractTextPlugin('[name].css'),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
@@ -32,7 +28,7 @@ export default {
     })
   ],
   resolve: {
-    modulesDirectories: ['node_modules', SRC],
+    modules: ['node_modules', SRC],
     extensions: ['', '.js', '.jsx', '.scss']
   },
   module: {
@@ -45,10 +41,10 @@ export default {
       {
         test: /\.scss$/,
         include: [/src/],
-        loader: ExtractTextPlugin.extract('style', [
-          'css?sourceMap',
-          'postcss',
-          'sass?sourceMap&outputStyle=expanded'].join('!'))
+        loader: ExtractTextPlugin.extract({
+          fallbackLoader: 'style-loader',
+          loader: ['css', 'postcss', 'sass']
+        })
       }
     ]
   },
