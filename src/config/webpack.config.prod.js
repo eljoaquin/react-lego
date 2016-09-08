@@ -1,14 +1,11 @@
-/*
- * The .babel.js in the file name is what makes this work as es6
- * */
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import PurifyCssPlugin from 'purifycss-loader/PurifyCssPlugin';
-import cssnano from 'cssnano';
-import './environment';
-import { SRC, DIST } from './paths';
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+require('./environment');
+const { SRC, DIST } = require('./paths');
+const PurifyCssPlugin = require('purifycss-loader/PurifyCssPlugin');
+const cssnano = require('cssnano');
 
-export default {
+module.exports = {
   entry: {
     app: [
       `${SRC}/client-entry.js`
@@ -22,7 +19,6 @@ export default {
   plugins: [
     new ExtractTextPlugin('[name].css'),
     new PurifyCssPlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({ minimize: true }),
     new webpack.DefinePlugin({
@@ -50,9 +46,10 @@ export default {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', [
-          'css',
-          'sass?outputStyle=compact'].join('!'))
+        loader: ExtractTextPlugin.extract({
+          fallbackLoader: 'style-loader',
+          loader: ['css', 'postcss', 'sass']
+        })
       },
     ]
   },
