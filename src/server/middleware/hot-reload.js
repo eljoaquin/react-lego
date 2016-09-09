@@ -3,7 +3,7 @@ import express from 'express';
 import webpackMiddleware from 'webpack-dev-middleware';
 import debug from 'debug';
 
-import webpackConfig from '../../config/webpack.config.dev.babel';
+import webpackConfig from '../../config/webpack.config.dev';
 
 const log = {
   pack: debug('webpack'),
