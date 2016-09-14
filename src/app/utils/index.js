@@ -1,7 +1,5 @@
-import find from 'lodash/find';
 import get from 'lodash/get';
 
-import { routes } from '../routes';
 export { fetch, json } from './fetch';
 export { randomRange } from './randomRange';
 
@@ -14,12 +12,3 @@ export const isBrowser = typeof navigator !== 'undefined' && navigator.indexOf('
 export const localUrl = isBrowser
   ? (new window.URL(window.location)).origin
   : `http://localhost:${process.env.PORT}`;
-
-export function findRoute(pathname) {
-  return find(routes, (route) =>
-    pathname
-      .replace(/(\?.*)|(#.*)/g, '')
-      .replace(/\/$/, '')
-      .replace(/^\//, '') === route.path
-  );
-}
